@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import './App.css';
 
 function GachaButton({ren,onClick}){
@@ -30,7 +30,29 @@ export default function Game(){
 
     const [result,setResult]=useState([]);
 
-    function showResult(){
+    React.useEffect(() => {
+        // load save from localStorage
+        if(localStorage.getItem("chinpoint")!=null){
+            setChinpoint(parseInt(localStorage.getItem("chinpoint")));
+        }
+    
+        if(localStorage.getItem("ren")!=null){
+            setRen(parseInt(localStorage.getItem("ren")));
+        }
+        if(localStorage.getItem("renUpgradeCost")!=null){
+            setRenUpgradeCost(parseInt(localStorage.getItem("renUpgradeCost")));
+        }
+    
+        if(localStorage.getItem("probPercent")!=null){
+            setProbPercent(parseInt(localStorage.getItem("probPercent")));
+        }
+        if(localStorage.getItem("probUpgradeCost")!=null){
+            setProbUpgradeCost(parseInt(localStorage.getItem("probUpgradeCost")));
+        }
+    },[]);
+    
+    // gacha function
+    const showResult = () => {
         var ret=[];
         var newChinpoint=chinpoint;
         for(var i=0;i<ren;i++){
@@ -45,22 +67,29 @@ export default function Game(){
         setChinpoint(newChinpoint);
         setResult(ret);
         console.log(result);
-        return;
+
+        localStorage.setItem("chinpoint",chinpoint.toString()); 
     }
 
-    function probUpgrade(){
+    const probUpgrade = () => {
         if(chinpoint>=probUpgradeCost){
             setProbPercent(probPercent+1);
             setChinpoint(chinpoint-probUpgradeCost);
             setProbUpgradeCost(Math.floor(probUpgradeCost*1.1));
+            localStorage.setItem("probPercent",(probPercent+1).toString());
+            localStorage.setItem("probUpgradeCost",Math.floor(probUpgradeCost*1.1).toString());
+            localStorage.setItem("chinpoint",(chinpoint-probUpgradeCost).toString());
         }
     }
 
-    function renUpgrade(){
+    const renUpgrade = () => {
         if(chinpoint>=renUpgradeCost){
             setRen(ren+1);
             setChinpoint(chinpoint-renUpgradeCost);
             setRenUpgradeCost(Math.floor(renUpgradeCost*1.1));
+            localStorage.setItem("ren",(ren+1).toString());
+            localStorage.setItem("renUpgradeCost",Math.floor(renUpgradeCost*1.1).toString());
+            localStorage.setItem("chinpoint",(chinpoint-renUpgradeCost).toString());
         }
     }
     
