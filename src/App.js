@@ -28,14 +28,16 @@ export default function Game(){
 
     function showResult(){
         var ret=[];
+        var newChinpoint=chinpoint;
         for(var i=0;i<ren;i++){
             if(Math.random()<probPercent/100.0){
                 ret.push(<p className={"chinko gacha-result"} key={i}>ちんこ</p>);
-                setChinpoint(chinpoint+1);
+                newChinpoint++;
             }else{
                 ret.push(<p className="hazure gacha-result" key={i}>はずれ</p>);
             }
         }
+        setChinpoint(newChinpoint);
         setResult(ret);
         console.log(result);
         return;
