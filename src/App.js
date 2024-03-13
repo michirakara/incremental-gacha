@@ -1,25 +1,82 @@
-import logo from './logo.svg';
+import React, { useState } from 'react'
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function GachaButton({ren,onClick}){
+    return <button className="gacha-button" onClick={onClick}>{ren}連下ネタガチャを回す</button>;
 }
 
-export default App;
+function ProbUpgrade({onClick,cost}){
+    return <button className="prob-upgrade upgrade-button" onClick={onClick}>確率を+1%する<br/>{cost}チンポイント</button>
+}
+
+function RenUpgrade({onClick,cost}){
+    return <button className="ren-upgrade upgrade-button" onClick={onClick}>ガチャの数を1増やす<br/>{cost}チンポイント</button>
+}
+
+
+
+export default function Game(){
+    const [chinpoint,setChinpoint]=useState(0);
+
+    const [ren,setRen]=useState(10);
+    const [renUpgradeCost,setRenUpgradeCost]=useState(10);
+
+    const [probPercent,setProbPercent]=useState(3);
+    const [probUpgradeCost,setProbUpgradeCost]=useState(10);
+
+    const [result,setResult]=useState([]);
+
+    function showResult(){
+        var ret=[];
+        for(var i=0;i<ren;i++){
+            if(Math.random()<probPercent/100.0){
+                ret.push(<p className={"chinko gacha-result"} key={i}>ちんこ</p>);
+                setChinpoint(chinpoint+1);
+            }else{
+                ret.push(<p className="hazure gacha-result" key={i}>はずれ</p>);
+            }
+        }
+        setResult(ret);
+        console.log(result);
+        return;
+    }
+
+    function probUpgrade(){
+        if(chinpoint>=probUpgradeCost){
+            setProbPercent(probPercent+1);
+            setChinpoint(chinpoint-probUpgradeCost);
+            setProbUpgradeCost(Math.floor(probUpgradeCost*1.1));
+        }
+    }
+
+    function renUpgrade(){
+        if(chinpoint>=renUpgradeCost){
+            setRen(ren+1);
+            setChinpoint(chinpoint-renUpgradeCost);
+            setRenUpgradeCost(Math.floor(renUpgradeCost*1.1));
+        }
+    }
+    
+
+    return (
+        <>
+            <div className="point">
+                <h1 className="chinpoint">{chinpoint} ポイント</h1>
+            </div>
+            <div className="button">
+                <GachaButton ren={ren} onClick={() => showResult()}/>
+            </div>
+            <div className="result">
+                {result}
+            </div>
+            <div className="info">
+                現在の確率: {probPercent}%<br/>
+                現在のガチャ: {ren}連
+            </div>
+            <div className="upgrades">
+                <ProbUpgrade onClick={() => probUpgrade()} cost={probUpgradeCost}/>
+                <RenUpgrade onClick={() => renUpgrade()} cost={renUpgradeCost}/>
+            </div>
+        </>
+    );
+}
