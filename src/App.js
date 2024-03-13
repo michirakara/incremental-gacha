@@ -37,6 +37,7 @@ export default function Game(){
                 ret.push(<p className="hazure gacha-result" key={i}>はずれ</p>);
             }
         }
+        console.log(newChinpoint);
         setChinpoint(newChinpoint);
         setResult(ret);
         console.log(result);
