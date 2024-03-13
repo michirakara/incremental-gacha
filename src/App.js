@@ -2,15 +2,19 @@ import React, { useState } from 'react'
 import './App.css';
 
 function GachaButton({ren,onClick}){
-    return <button className="gacha-button" onClick={onClick}>{ren}連下ネタガチャを回す</button>;
+    return <button className="gacha-button" onClick={onClick}><span className="number">{ren}</span>連下ネタガチャを回す</button>;
 }
 
-function ProbUpgrade({onClick,cost}){
-    return <button className="prob-upgrade upgrade-button" onClick={onClick}>確率を+1%する<br/>{cost}チンポイント</button>
+function ProbUpgrade({onClick,cost,isEnabled}){
+    console.log(isEnabled);
+    if(isEnabled)return <button className="prob-upgrade upgrade-button enabled" onClick={onClick}>確率を+1%する<br/>{cost}チンポイント</button>
+    else return <button className="prob-upgrade upgrade-button disabled" onClick={onClick}>確率を+1%する<br/>{cost}チンポイント</button>
 }
 
-function RenUpgrade({onClick,cost}){
-    return <button className="ren-upgrade upgrade-button" onClick={onClick}>ガチャの数を1増やす<br/>{cost}チンポイント</button>
+function RenUpgrade({onClick,cost,isEnabled}){
+    console.log(isEnabled);
+    if(isEnabled)return <button className="ren-upgrade upgrade-button enabled" onClick={onClick}>ガチャの数を1増やす<br/>{cost}チンポイント</button>
+    else return <button className="ren-upgrade upgrade-button disabled" onClick={onClick}>ガチャの数を1増やす<br/>{cost}チンポイント</button>
 }
 
 
@@ -77,8 +81,8 @@ export default function Game(){
                 現在のガチャ: {ren}連
             </div>
             <div className="upgrades">
-                <ProbUpgrade onClick={() => probUpgrade()} cost={probUpgradeCost}/>
-                <RenUpgrade onClick={() => renUpgrade()} cost={renUpgradeCost}/>
+                <ProbUpgrade onClick={() => probUpgrade()} cost={probUpgradeCost} isEnabled={probUpgradeCost<=chinpoint}/>
+                <RenUpgrade onClick={() => renUpgrade()} cost={renUpgradeCost} isEnabled={renUpgradeCost<=chinpoint}/>
             </div>
         </>
     );

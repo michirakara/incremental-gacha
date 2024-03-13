@@ -13,10 +13,43 @@
     animation: rainbow 0.3s linear infinite;
 }
 
+.gacha-button{
+    border: none;
+    border-radius:5px;
+    height: 50px;
+    font-size: 20px;
+    font-weight:400;
+    color: #201000;
+    transform:skew(-15deg);
+    background: -moz-linear-gradient(left,gold,lemonchiffon,80%,gold);
+    background: -webkit-linear-gradient(left,gold,lemonchiffon,80%,gold);
+    background: linear-gradient(to right,gold,lemonchiffon,80%,gold);
+}
+.gacha-button .number{
+    font-weight:bold;
+}
+
+.upgrade-button{
+    font-size: 15px;
+    width: 162px;
+    height: 100px;
+}
+.upgrade-button.disabled{
+    color: dimgray;
+    background: aliceblue;
+    border: 2px solid dimgray;
+}
+.upgrade-button.enabled{
+    color: black;
+    background: lightskyblue;
+    border: 2px solid black;
+}
+
 @keyframes rainbow{
     to {background-position-x: 200%;}
 }
 
 body{
+    margin:10px;
     white-space:normal;
 }
