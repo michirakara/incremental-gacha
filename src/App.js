@@ -47,7 +47,11 @@ export default function Game(){
             setProbPercent(parseInt(localStorage.getItem("probPercent")));
         }
         if(localStorage.getItem("probUpgradeCost")!=null){
-            setProbUpgradeCost(parseInt(localStorage.getItem("probUpgradeCost")));
+            if(localStorage.getItem("probUpgradeCost")==="Infinity"){
+                setProbUpgradeCost(Infinity);
+            }else{
+                setProbUpgradeCost(parseInt(localStorage.getItem("probUpgradeCost")));
+            }
         }
     },[]);
     
