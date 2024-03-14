@@ -53,6 +53,28 @@
     }
 }
 
+.prestige{
+    font-size:15px;
+    width:162px;
+    height:100px;
+
+    &.disabled{
+        color:dimgray;
+        background: thistle;
+        border: 2px solid dimgray;
+    }
+    &.enabled{
+        color:black;
+        background:mediumpurple;
+        border:2px solid black;
+    }
+}
+
+.delete-save{
+    margin-top:100px;
+    color:red;
+}
+
 @keyframes rainbow{
     to {background-position-x: 200%;}
 }

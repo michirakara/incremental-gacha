@@ -17,10 +17,21 @@ function RenUpgrade({onClick,cost,isEnabled}){
     else return <button className="ren-upgrade upgrade-button disabled" onClick={onClick}>ガチャの数を1増やす<br/>{cost}チンポイント</button>
 }
 
+function Prestige({onClick,isEnabled,multiplier}){
+    if(isEnabled)return <button className="prestige enabled" onClick={onClick}>コストの増加速度→^{multiplier}<br/>それ以外の進捗をリセット</button>
+    else return <button className="prestige disabled" onClick={onClick}>100%100連以上でアンロック</button>
+}
+
+function DeleteSave({onClick}){
+    return <button className="delete-save" onClick={onClick}>セーブデータを削除する</button>;
+}
 
 
 export default function Game(){
     const [chinpoint,setChinpoint]=useState(0);
+
+    const [upgradeCostSpeed,setUpgradeCostSpeed]=useState(1.1);
+    const prestigeMultiplier=0.8;
 
     const [ren,setRen]=useState(10);
     const [renUpgradeCost,setRenUpgradeCost]=useState(10);
@@ -29,6 +40,8 @@ export default function Game(){
     const [probUpgradeCost,setProbUpgradeCost]=useState(10);
 
     const [result,setResult]=useState([]);
+
+    const [prestigeNum,setPrestigeNum]=useState(0);
 
     React.useEffect(() => {
         // load save from localStorage
@@ -52,6 +65,13 @@ export default function Game(){
             }else{
                 setProbUpgradeCost(parseInt(localStorage.getItem("probUpgradeCost")));
             }
+        }
+        
+        if(localStorage.getItem("prestigeNum")!=null){
+            setPrestigeNum(parseInt(localStorage.getItem("prestigeNum")));
+        }
+        if(localStorage.getItem("upgradeCostSpeed")!=null){
+            setPrestigeNum(Number(localStorage.getItem("upgradeCostSpeed")));
         }
     },[]);
     
@@ -79,9 +99,9 @@ export default function Game(){
         if(chinpoint>=probUpgradeCost){
             setProbPercent(probPercent+1);
             setChinpoint(chinpoint-probUpgradeCost);
-            setProbUpgradeCost(Math.floor(probUpgradeCost*1.1));
+            setProbUpgradeCost(Math.max(probUpgradeCost+1,Math.floor(probUpgradeCost*upgradeCostSpeed)));
             localStorage.setItem("probPercent",(probPercent+1).toString());
-            localStorage.setItem("probUpgradeCost",Math.floor(probUpgradeCost*1.1).toString());
+            localStorage.setItem("probUpgradeCost",Math.max(probUpgradeCost,Math.floor(probUpgradeCost*upgradeCostSpeed).toString()));
             localStorage.setItem("chinpoint",(chinpoint-probUpgradeCost).toString());
             if(probPercent+1===100){
                 setProbUpgradeCost(Infinity);
@@ -94,10 +114,39 @@ export default function Game(){
         if(chinpoint>=renUpgradeCost){
             setRen(ren+1);
             setChinpoint(chinpoint-renUpgradeCost);
-            setRenUpgradeCost(Math.floor(renUpgradeCost*1.1));
+            setRenUpgradeCost(Math.max(renUpgradeCost+1,Math.floor(renUpgradeCost*upgradeCostSpeed)));
             localStorage.setItem("ren",(ren+1).toString());
-            localStorage.setItem("renUpgradeCost",Math.floor(renUpgradeCost*1.1).toString());
+            localStorage.setItem("renUpgradeCost",Math.max(renUpgradeCost+1,Math.floor(renUpgradeCost*upgradeCostSpeed).toString()));
             localStorage.setItem("chinpoint",(chinpoint-renUpgradeCost).toString());
+        }
+    }
+
+    const prestige = () => {
+        if(probPercent>=100 && ren>=100){
+            setRen(10);
+            setRenUpgradeCost(10);
+            setProbPercent(3);
+            setProbUpgradeCost(10);
+            setChinpoint(0);
+
+            setPrestigeNum(prestigeNum+1);
+            setUpgradeCostSpeed(upgradeCostSpeed**prestigeMultiplier);
+
+            localStorage.setItem("ren","10");
+            localStorage.setItem("renUpgradeCost","10");
+            localStorage.setItem("probPercent","3");
+            localStorage.setItem("probUpgradeCost","10");
+            localStorage.setItem("chinpoint","0");
+            localStorage.setItem("prestigeNum",(prestigeNum+1).toString());
+            localStorage.setItem("upgradeCostSpeed",(upgradeCostSpeed**prestigeMultiplier).toString());
+            
+        }
+    }
+
+    const deleteSave = () => {
+        if(window.confirm("本当にデータを削除しますか？\nこれはソフトリセットではありません！")){
+            localStorage.clear();
+            window.location.reload();
         }
     }
     
@@ -120,6 +169,14 @@ export default function Game(){
             <div className="upgrades">
                 <ProbUpgrade onClick={() => probUpgrade()} cost={probUpgradeCost} isEnabled={probUpgradeCost<=chinpoint}/>
                 <RenUpgrade onClick={() => renUpgrade()} cost={renUpgradeCost} isEnabled={renUpgradeCost<=chinpoint}/>
+            </div>
+
+            <div className="prestige">
+                <Prestige onClick={() => prestige()} isEnabled={probPercent>=100 && ren>=100} multiplier={prestigeMultiplier}/>
+            </div>
+            
+            <div className="options">
+                <DeleteSave onClick={() => deleteSave()}/>
             </div>
         </>
     );
