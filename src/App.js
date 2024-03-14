@@ -79,6 +79,10 @@ export default function Game(){
             localStorage.setItem("probPercent",(probPercent+1).toString());
             localStorage.setItem("probUpgradeCost",Math.floor(probUpgradeCost*1.1).toString());
             localStorage.setItem("chinpoint",(chinpoint-probUpgradeCost).toString());
+            if(probPercent+1===100){
+                setProbUpgradeCost(Infinity);
+                localStorage.setItem("probUpgradeCost",Infinity.toString());
+            }
         }
     }
 
