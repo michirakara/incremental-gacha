@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/incremental-gacha/static/css/main.ccdb0ea8.css",
-    "main.js": "/incremental-gacha/static/js/main.c265a6c7.js",
+    "main.js": "/incremental-gacha/static/js/main.30b023fe.js",
     "static/js/453.88999f7b.chunk.js": "/incremental-gacha/static/js/453.88999f7b.chunk.js",
     "index.html": "/incremental-gacha/index.html",
     "main.ccdb0ea8.css.map": "/incremental-gacha/static/css/main.ccdb0ea8.css.map",
-    "main.c265a6c7.js.map": "/incremental-gacha/static/js/main.c265a6c7.js.map",
+    "main.30b023fe.js.map": "/incremental-gacha/static/js/main.30b023fe.js.map",
     "453.88999f7b.chunk.js.map": "/incremental-gacha/static/js/453.88999f7b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ccdb0ea8.css",
-    "static/js/main.c265a6c7.js"
+    "static/js/main.30b023fe.js"
   ]
 }

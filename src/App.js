@@ -68,7 +68,7 @@ export default function Game(){
         setResult(ret);
         console.log(result);
 
-        localStorage.setItem("chinpoint",chinpoint.toString()); 
+        localStorage.setItem("chinpoint",newChinpoint.toString()); 
     }
 
     const probUpgrade = () => {
