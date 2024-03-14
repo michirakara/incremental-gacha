@@ -71,7 +71,7 @@ export default function Game(){
             setPrestigeNum(parseInt(localStorage.getItem("prestigeNum")));
         }
         if(localStorage.getItem("upgradeCostSpeed")!=null){
-            setPrestigeNum(Number(localStorage.getItem("upgradeCostSpeed")));
+            setUpgradeCostSpeed(Number(localStorage.getItem("upgradeCostSpeed")));
         }
     },[]);
     
