@@ -164,7 +164,8 @@ export default function Game(){
             </div>
             <div className="info">
                 現在の確率: {probPercent}%<br/>
-                現在のガチャ: {ren}連
+                現在のガチャ: {ren}連<br/>
+                リセット回数: {prestigeNum}回<br/>
             </div>
             <div className="upgrades">
                 <ProbUpgrade onClick={() => probUpgrade()} cost={probUpgradeCost} isEnabled={probUpgradeCost<=chinpoint}/>
