@@ -8,3 +8,11 @@ export const deleteSave = () => {
         window.location.reload();
     }
 }
+
+export function SimpleGachaBorderSetting({Var}){
+    return (
+    <>
+        <input className="simple-gacha-border" type="number" value={Var.simpleGachaBorder} onChange={(event) => {Var.setSimpleGachaBorder(event.target.value);localStorage.setItem("simpleGachaBorder",event.target.value)}} min="0"/>連以上の場合にガチャを軽量化する<br/>
+    </>
+    );
+}

@@ -27,5 +27,9 @@ export const init = (Var) => {
     if(localStorage.getItem("upgradeCostSpeed")!=null){
         Var.setUpgradeCostSpeed(Number(localStorage.getItem("upgradeCostSpeed")));
     }
+
+    if(localStorage.getItem("simpleGachaBorder")!=null){
+        Var.setSimpleGachaBorder(Number(localStorage.getItem("simpleGachaBorder")));
+    }
 }
 export default init;

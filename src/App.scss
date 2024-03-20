@@ -70,9 +70,15 @@
     }
 }
 
-.delete-save{
-    margin-top:100px;
-    color:red;
+.options{
+    .simple-gacha-border{
+        margin-top:30px;
+        width:40px;
+    }
+    .delete-save{
+        margin-top:10px;
+        color:red;
+    }
 }
 
 @keyframes rainbow{

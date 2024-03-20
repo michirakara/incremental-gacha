@@ -5,7 +5,7 @@ import { showResult,GachaButton } from './lib/gacha';
 import { renUpgrade,RenUpgrade } from './lib/upgrades/ren.js';
 import { probUpgrade, ProbUpgrade } from './lib/upgrades/prob.js';
 import { prestige,Prestige } from  './lib/upgrades/prestige.js';
-import { DeleteSave,deleteSave } from './lib/settings.js';
+import { DeleteSave,deleteSave,SimpleGachaBorderSetting } from './lib/settings.js';
 
 export default function Game(){
     const [chinpoint,setChinpoint]=useState(0);
@@ -18,6 +18,8 @@ export default function Game(){
     const [result,setResult]=useState([]);
     const [prestigeNum,setPrestigeNum]=useState(0);
 
+    const [simpleGachaBorder,setSimpleGachaBorder]=useState(100);
+
     const variables={
         chinpoint:chinpoint,setChinpoint:setChinpoint,
         upgradeCostSpeed:upgradeCostSpeed,setUpgradeCostSpeed:setUpgradeCostSpeed,
@@ -28,6 +30,8 @@ export default function Game(){
         probUpgradeCost:probUpgradeCost,setProbUpgradeCost:setProbUpgradeCost,
         result:result,setResult:setResult,
         prestigeNum:prestigeNum,setPrestigeNum:setPrestigeNum,
+
+        simpleGachaBorder:simpleGachaBorder,setSimpleGachaBorder:setSimpleGachaBorder,
     };
 
     React.useEffect(() => {init(variables)});
@@ -59,6 +63,7 @@ export default function Game(){
             </div>
             
             <div className="options">
+                <SimpleGachaBorderSetting Var={variables}/>
                 <DeleteSave onClick={() => deleteSave(variables)}/>
             </div>
         </>
