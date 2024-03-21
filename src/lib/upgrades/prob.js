@@ -10,7 +10,7 @@ export const probUpgrade = (Var) => {
         Var.setChinpoint(Var.chinpoint-Var.probUpgradeCost);
         Var.setProbUpgradeCost(Math.max(Var.probUpgradeCost+1,Math.floor(Var.probUpgradeCost*Var.upgradeCostSpeed)));
         localStorage.setItem("probPercent",(Var.probPercent+1).toString());
-        localStorage.setItem("probUpgradeCost",Math.max(Var.probUpgradeCost,Math.floor(Var.probUpgradeCost*Var.upgradeCostSpeed).toString()));
+        localStorage.setItem("probUpgradeCost",Math.max(Var.probUpgradeCost+1,Math.floor(Var.probUpgradeCost*Var.upgradeCostSpeed).toString()));
         localStorage.setItem("chinpoint",(Var.chinpoint-Var.probUpgradeCost).toString());
         if(Var.probPercent+1===100){
             Var.setProbUpgradeCost(Infinity);
